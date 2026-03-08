@@ -294,19 +294,47 @@ export const updateProfile = async (req, res) => {
 export const resetPassword = async (req, res) => {
   try {
     const { email, otp, newPassword } = req.body;
-    const otpRecord = await Otp.findOne({ email, otp });
 
-    if (!otpRecord) return res.status(400).json({ success: false, message: "Invalid or expired OTP" });
+    const otpRecord = await Otp.findOne({ email });
+
+    if (!otpRecord) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid or expired OTP",
+      });
+    }
+
+    const isOtpValid = await bcrypt.compare(otp, otpRecord.otp);
+
+    if (!isOtpValid) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid OTP",
+      });
+    }
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
     user.password = await bcrypt.hash(newPassword, 10);
     await user.save();
+
     await Otp.deleteOne({ _id: otpRecord._id });
 
-    res.status(200).json({ success: true, message: "Password reset successful" });
+    res.status(200).json({
+      success: true,
+      message: "Password reset successful",
+    });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Reset failed" });
+    res.status(500).json({
+      success: false,
+      message: "Reset failed",
+    });
   }
 };
