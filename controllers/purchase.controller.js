@@ -9,7 +9,6 @@ export const getDashboardStats = async (req, res) => {
             .populate('course') // Model mein field 'course' hai
             .populate('user');   // Model mein field 'user' hai
 
-        console.log("Real Purchases Found:", purchases.length);
 
         // 2. Total Revenue
         const totalRevenue = purchases.reduce((acc, curr) => acc + curr.amount, 0);
