@@ -13,6 +13,6 @@ router.post("/generate", isAuthenticated, generateCertificate);
 
 router.get("/verify/:id", verifyCertificate);
 
-router.get("/download/:id",isAuthenticated, downloadCertificate);
+router.get("/download/:id", downloadCertificate);
 
 export default router;
