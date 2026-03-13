@@ -8,7 +8,6 @@ export const certificateTemplate = ({
 
 return `
 <html>
-
 <head>
 
 <style>
@@ -21,139 +20,178 @@ box-sizing:border-box;
 
 body{
 font-family:Arial, sans-serif;
+background:white;
 display:flex;
 justify-content:center;
 align-items:center;
-background:white;
 }
 
-/* container */
+/* certificate container */
 
 .certificate{
 
-width:1080px;          /* smaller */
-height:720px;          /* smaller */
-border:10px solid #facc15;
-border-radius:25px;
-padding:55px;
+width:1120px;
+height:760px;
+border:12px solid #facc15;
+border-radius:28px;
+padding:70px;
 text-align:center;
 position:relative;
 overflow:hidden;
+background:#fffdf5;
 
 }
 
-/* background gradient */
+/* golden background */
 
 .bg{
+
 position:absolute;
 inset:0;
-background:linear-gradient(135deg,#fde047,#fed7aa,#facc15);
-opacity:0.12;
+background:linear-gradient(135deg,#fde047,#fcd34d,#facc15);
+opacity:0.25;
+
 }
 
 /* ribbon */
 
 .ribbon{
+
 position:absolute;
 top:0;
 left:0;
 background:#eab308;
 color:white;
-padding:5px 16px;
-font-size:10px;
+padding:7px 20px;
+font-size:12px;
 font-weight:900;
 letter-spacing:2px;
+
 }
 
 /* gold seal */
 
 .seal{
+
 position:absolute;
-top:30px;
-right:30px;
+top:40px;
+right:40px;
 background:linear-gradient(135deg,#facc15,#f97316);
 color:white;
-width:50px;
-height:50px;
+width:60px;
+height:60px;
 border-radius:50%;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:22px;
+font-size:26px;
+
 }
 
-/* heading */
+/* PROXIMA */
 
 .proxima{
-font-size:28px;
-font-weight:900;
-color:#ca8a04;
-letter-spacing:3px;
-}
 
-.title{
 font-size:36px;
 font-weight:900;
-margin-top:6px;
+color:#ca8a04;
+letter-spacing:4px;
+
 }
 
-.subtitle{
+/* title */
+
+.title{
+
+font-size:44px;
+font-weight:900;
 margin-top:10px;
+
+}
+
+/* subtitle */
+
+.subtitle{
+
+margin-top:15px;
 letter-spacing:2px;
 font-weight:700;
 color:#71717a;
-font-size:12px;
+font-size:14px;
+
 }
+
+/* name */
 
 .name{
-font-size:42px;
+
+font-size:52px;
 color:#2563eb;
-margin-top:18px;
+margin-top:25px;
 font-weight:900;
+
 }
 
+/* course */
+
 .course{
-font-size:20px;
-margin-top:8px;
+
+font-size:26px;
+margin-top:12px;
 font-weight:700;
+
 }
 
 /* footer */
 
 .footer{
+
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-top:35px;
+margin-top:55px;
+
 }
 
 .info{
+
 text-align:left;
+
 }
 
 .label{
-font-size:10px;
+
+font-size:11px;
 letter-spacing:2px;
 color:#a1a1aa;
 font-weight:900;
+
 }
 
 .value{
+
 font-weight:700;
-margin-bottom:6px;
-font-size:12px;
+margin-bottom:10px;
+font-size:14px;
+
 }
 
 .issued{
+
 display:flex;
 align-items:center;
-gap:5px;
-font-size:12px;
+gap:6px;
+font-size:14px;
+
 }
 
+/* QR */
+
 .qr img{
-width:90px;
-height:90px;
+
+width:110px;
+height:110px;
+
 }
 
 </style>
@@ -190,7 +228,7 @@ THIS CERTIFICATE IS PROUDLY PRESENTED TO
 ${name}
 </div>
 
-<p style="margin-top:8px;font-size:14px;">
+<p style="margin-top:10px;font-size:16px;">
 for successfully completing the course
 </p>
 
