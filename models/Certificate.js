@@ -23,6 +23,9 @@ const certificateSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  pdfUrl: {
+    type: String,
+  },
 
   issuedAt: {
     type: Date,
