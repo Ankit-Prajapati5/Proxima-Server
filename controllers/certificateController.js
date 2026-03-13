@@ -2,6 +2,8 @@ import Certificate from "../models/Certificate.js";
 import CoursePurchase from "../models/coursePurchase.model.js";
 import { generateCertificateHash } from "../utils/hashCertificate.js";
 import { generateCertificateId } from "../utils/certificateId.js";
+import puppeteer from "puppeteer";
+import { certificateTemplate } from "../utils/certificateTemplate.js";
 
 export const generateCertificate = async (req, res) => {
 
@@ -85,4 +87,70 @@ export const verifyCertificate = async (req, res) => {
     course: cert.course.courseTitle,
     issuedAt: cert.issuedAt,
   });
+};
+
+export const downloadCertificate = async (req,res) => {
+
+try{
+
+const cert = await Certificate.findOne({
+certificateId:req.params.id
+})
+.populate("user")
+.populate("course");
+
+if(!cert){
+return res.status(404).json({
+message:"Certificate not found"
+});
+}
+
+const browser = await puppeteer.launch({
+args:["--no-sandbox"]
+});
+
+const page = await browser.newPage();
+
+const html = certificateTemplate({
+
+name: cert.user.name,
+course: cert.course.courseTitle,
+certificateId: cert.certificateId,
+issueDate: cert.issuedAt.toDateString(),
+verifyUrl:`https://proxima.edorotechnologies.com/verify/${cert.certificateId}`
+
+});
+
+await page.setContent(html,{
+waitUntil:"networkidle0"
+});
+
+const pdf = await page.pdf({
+
+format:"A4",
+landscape:true,
+printBackground:true
+
+});
+
+await browser.close();
+
+res.set({
+
+"Content-Type":"application/pdf",
+"Content-Disposition":`attachment; filename=Proxima-Certificate-${cert.certificateId}.pdf`
+
+});
+
+res.send(pdf);
+
+}catch(err){
+
+console.log(err);
+res.status(500).json({
+message:"Error generating certificate"
+});
+
+}
+
 };
