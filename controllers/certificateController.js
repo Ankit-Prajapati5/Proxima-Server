@@ -2,10 +2,10 @@ import Certificate from "../models/Certificate.js";
 import CoursePurchase from "../models/coursePurchase.model.js";
 import { generateCertificateHash } from "../utils/hashCertificate.js";
 import { generateCertificateId } from "../utils/certificateId.js";
-import puppeteer from "puppeteer";
+import html_to_pdf from "html-pdf-node";
 import { certificateTemplate } from "../utils/certificateTemplate.js";
 import imagekit from "../utils/imagekit.js";
-import streamifier from "streamifier";
+
 
 export const generateCertificate = async (req, res) => {
   const { courseId } = req.body;
@@ -24,8 +24,8 @@ export const generateCertificate = async (req, res) => {
   }
 
   const totalLectures = purchase.course.lectures.length;
-
-  const completedLectures = purchase.progress?.completedLectures?.length || 0;
+  const completedLectures =
+    purchase.progress?.completedLectures?.length || 0;
 
   const percent =
     totalLectures > 0
@@ -38,14 +38,6 @@ export const generateCertificate = async (req, res) => {
     });
   }
 
-  const certificateId = generateCertificateId();
-
-  const hash = generateCertificateHash({
-    userId,
-    courseId,
-    certificateId,
-  });
-
   const existing = await Certificate.findOne({
     user: userId,
     course: courseId,
@@ -55,13 +47,15 @@ export const generateCertificate = async (req, res) => {
     return res.json(existing);
   }
 
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  const certificateId = generateCertificateId();
+
+  const hash = generateCertificateHash({
+    userId,
+    courseId,
+    certificateId,
   });
 
-  const page = await browser.newPage();
-
+  // HTML template
   const html = certificateTemplate({
     name: req.user.name,
     course: purchase.course.courseTitle,
@@ -70,25 +64,24 @@ export const generateCertificate = async (req, res) => {
     verifyUrl: `https://proxima.edorotechnologies.com/verify/${certificateId}`,
   });
 
-  await page.setContent(html, {
-    waitUntil: "networkidle0",
-  });
-
-  const pdf = await page.pdf({
+  // PDF options
+  const options = {
     format: "A4",
     landscape: true,
     printBackground: true,
-  });
+  };
 
-  await browser.close();
+  const file = { content: html };
 
-  const stream = streamifier.createReadStream(pdf);
+  const pdfBuffer = await html_to_pdf.generatePdf(file, options);
 
+  // Upload to ImageKit
   const upload = await imagekit.upload({
-    file: stream,
+    file: pdfBuffer.toString("base64"),
     fileName: `Proxima-Certificate-${certificateId}.pdf`,
     folder: "/proxima-certificates",
   });
+
   const certificate = await Certificate.create({
     certificateId,
     user: userId,
@@ -98,8 +91,6 @@ export const generateCertificate = async (req, res) => {
   });
 
   res.json(certificate);
-  console.log("PDF size:", pdf.length);
-  console.log("ImageKit URL:", upload.url);
 };
 
 export const downloadCertificate = async (req, res) => {

@@ -13,25 +13,30 @@ return `
 
 <style>
 
-body{
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
 font-family:Arial, sans-serif;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
 background:white;
 }
 
+/* container */
+
 .certificate{
 
-width:1123px;
-height:794px;
-border:12px solid #facc15;
-border-radius:30px;
-padding:80px;
+width:1080px;          /* smaller */
+height:720px;          /* smaller */
+border:10px solid #facc15;
+border-radius:25px;
+padding:55px;
 text-align:center;
-box-sizing:border-box;
 position:relative;
 overflow:hidden;
 
@@ -40,136 +45,115 @@ overflow:hidden;
 /* background gradient */
 
 .bg{
-
 position:absolute;
 inset:0;
 background:linear-gradient(135deg,#fde047,#fed7aa,#facc15);
-opacity:0.15;
-
+opacity:0.12;
 }
 
 /* ribbon */
 
 .ribbon{
-
 position:absolute;
 top:0;
 left:0;
 background:#eab308;
 color:white;
-padding:6px 18px;
-font-size:12px;
+padding:5px 16px;
+font-size:10px;
 font-weight:900;
 letter-spacing:2px;
-
 }
 
 /* gold seal */
 
 .seal{
-
 position:absolute;
-top:40px;
-right:40px;
+top:30px;
+right:30px;
 background:linear-gradient(135deg,#facc15,#f97316);
 color:white;
-width:60px;
-height:60px;
+width:50px;
+height:50px;
 border-radius:50%;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:28px;
-
+font-size:22px;
 }
 
-.proxima{
+/* heading */
 
-font-size:36px;
+.proxima{
+font-size:28px;
 font-weight:900;
 color:#ca8a04;
 letter-spacing:3px;
-
 }
 
 .title{
-
-font-size:48px;
+font-size:36px;
 font-weight:900;
-margin-top:10px;
-
+margin-top:6px;
 }
 
 .subtitle{
-
-margin-top:15px;
+margin-top:10px;
 letter-spacing:2px;
 font-weight:700;
 color:#71717a;
-
+font-size:12px;
 }
 
 .name{
-
-font-size:56px;
+font-size:42px;
 color:#2563eb;
-margin-top:25px;
+margin-top:18px;
 font-weight:900;
-
 }
 
 .course{
-
-font-size:28px;
-margin-top:10px;
+font-size:20px;
+margin-top:8px;
 font-weight:700;
-
 }
 
-.footer{
+/* footer */
 
+.footer{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-top:60px;
-
+margin-top:35px;
 }
 
 .info{
-
 text-align:left;
-
 }
 
 .label{
-
-font-size:12px;
+font-size:10px;
 letter-spacing:2px;
 color:#a1a1aa;
 font-weight:900;
-
 }
 
 .value{
-
 font-weight:700;
-margin-bottom:10px;
-
+margin-bottom:6px;
+font-size:12px;
 }
 
 .issued{
-
 display:flex;
 align-items:center;
 gap:5px;
-
+font-size:12px;
 }
 
 .qr img{
-
-width:120px;
-height:120px;
-
+width:90px;
+height:90px;
 }
 
 </style>
@@ -206,7 +190,7 @@ THIS CERTIFICATE IS PROUDLY PRESENTED TO
 ${name}
 </div>
 
-<p>
+<p style="margin-top:8px;font-size:14px;">
 for successfully completing the course
 </p>
 

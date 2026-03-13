@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "postinstall": "npx puppeteer browsers install chrome"
+    "dev": "nodemon index.js"
   },
   "engines": {
     "node": "18.x"
@@ -25,6 +24,7 @@
     "disposable-email-domains": "^1.0.62",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "html-pdf-node": "^1.0.8",
     "imagekit": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.3",
