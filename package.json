@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "postinstall": "npx puppeteer browsers install chrome"
+    "dev": "nodemon index.js"
   },
   "engines": {
     "node": "18.x"
@@ -25,16 +24,14 @@
     "disposable-email-domains": "^1.0.62",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "imagekit": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.3",
     "multer": "^2.0.2",
     "nodemon": "^3.1.11",
-    "puppeteer": "^24.39.1",
+    "puppeteer": "^24.39.0",
     "qrcode": "^1.5.4",
     "razorpay": "^2.9.6",
     "resend": "^6.8.0",
-    "streamifier": "^0.1.1",
     "uuid": "^13.0.0"
   }
 }
