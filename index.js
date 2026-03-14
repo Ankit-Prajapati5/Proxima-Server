@@ -22,6 +22,8 @@ import quizRoutes from "./routes/quiz.route.js";
 import aiDoubtRoutes from "./routes/aiDoubt.route.js";
 import certificateRoutes from "./routes/certificateRoutes.js";
 
+import aiCodeRoutes from "./routes/aiCodeRoutes.js";
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -84,6 +86,8 @@ app.use("/api/v1/course", purchaseRoute);
 app.use("/api/v1/contact", contactRoute);
 app.use("/api/v1/roadmap", roadmapRoute);
 app.use("/api/v1/quiz", quizRoutes);
+
+app.use("/api/v1/ai",aiCodeRoutes)
 
 app.use("/api/v1/ai-doubt",aiDoubtRoutes)
 app.use("/api/v1/certificate", certificateRoutes);
